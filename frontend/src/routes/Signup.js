@@ -65,6 +65,23 @@ function Signup(){
                     />
                 </div>
                 <div className="mb-3">
+                    <label htmlFor="role" className="form-label">Role</label>
+                    <select
+                        className="form-control form-select"
+                        id="role"
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option selected>Select Role</option>
+                        <option value="user">Skill Holder</option>
+                        <option value="expert">Expert</option>
+                        <option value="employer">Employer</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div className="mb-3">
                     <label htmlFor="password" className="form-label">Password</label>
                     <input
                         type="password"
@@ -72,6 +89,17 @@ function Signup(){
                         id="password"
                         name="password"
                         value={formData.password}
+                        onChange={handleChange}
+                        required
+                    />
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="password" className="form-label">Password</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        id="password"
+                        name="rpassword"
                         onChange={handleChange}
                         required
                     />
