@@ -1,4 +1,5 @@
 import React from "react";
+import JobListing from "./JobListing";
 import { Link } from 'react-router-dom';
 
 const SkillHolder = () =>{
@@ -57,6 +58,7 @@ const SkillHolder = () =>{
                 </div>
                 </div>
             </div>
+            <JobListing/>
         </div>
     )
 }

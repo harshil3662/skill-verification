@@ -6,7 +6,7 @@ import "../CSS/Profile.css"
 
 const Profile = () =>{
 
-    const profile = 'expert'
+    const profile = 'skillHolder'
 
       const renderComponent = () => {
         switch (profile) {
