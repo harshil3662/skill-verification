@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import Expert from "./ExpertProfile";
 import SkillHolder from "./SkillHolder";
-import "../CSS/Profile.css"
 
 const Profile = () =>{
 

@@ -10,7 +10,7 @@ const JobCard = ({ job }) => {
       <p className="job-rate">{job.rate}</p>
       <p className="job-location">{job.location}</p>
       <p className="job-type">{job.type}</p>
-      <button className="btn btn-secondary">Details</button>
+      <button className="btn btn-primary">Details</button>
     </div>
   );
 }
