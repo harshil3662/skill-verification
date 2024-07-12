@@ -5,7 +5,7 @@ import SkillHolder from "./SkillHolder";
 
 const Profile = () =>{
 
-    const profile = 'skillHolder'
+    const profile = 'expert'
 
       const renderComponent = () => {
         switch (profile) {

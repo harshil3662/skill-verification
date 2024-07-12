@@ -6,6 +6,7 @@ import Signin from "./routes/Signin"
 import Signup from "./routes/Signup"
 import Profile from './routes/Profile';
 import Voting from './routes/Voting';
+import RateModel from "./routes/Rate";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path='profile' element={<Profile />} />
           <Route path="signin" element={<Signin />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="rate" element={<RateModel/>}/>
         </Route>
       </Routes>
     </Router>

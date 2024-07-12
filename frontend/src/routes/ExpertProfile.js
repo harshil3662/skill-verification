@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../CSS/Expert.css';
 import Navbar from "./Navbar";
 import EditProfileModel from "./EditProfileModel";
+import RateModel from './Rate';
 
 const Expert = () => {
 
@@ -15,10 +17,19 @@ const Expert = () => {
         skills: ['JavaScript', 'React', 'CSS']
     })
 
-    const [current,setCurrent] = useState('Active')
+    const [current,setCurrent] = useState('Available')
+    const navigate = useNavigate();
 
     const toggleEditProfileModal = () => {
         setProfileModel(!profileModel);
+    };
+
+    const toggleModal = () => {
+        if (current === "Available") {
+            
+        } else {
+            navigate('/rate');
+        }
     };
 
     return (
@@ -36,17 +47,17 @@ const Expert = () => {
                 </div>
                 <div className="row mb-4">
                     <div className="col-md-3">
-                        <div className="card task text-center bg-light" onClick={()=>{setCurrent('Active')}}>
+                        <div className="card task text-center bg-light" onClick={()=>{setCurrent('Available')}}>
                             <div className="card-body">
-                                <h5 className="card-title">Active Task</h5>
+                                <h5 className="card-title">Available Task</h5>
                                 <p className="card-text display-4">18</p>
                             </div>
                         </div>
                     </div>
                     <div className="col-md-3">
-                        <div className="card task text-center bg-light" onClick={()=>{setCurrent('Pending')}}>
+                        <div className="card task text-center bg-light" onClick={()=>{setCurrent('Active')}}>
                             <div className="card-body">
-                                <h5 className="card-title">Pending Task</h5>
+                                <h5 className="card-title">Active Task</h5>
                                 <p className="card-text display-4">13</p>
                             </div>
                         </div>
@@ -90,40 +101,120 @@ const Expert = () => {
                                     <td>34</td>
                                     <td>JavaScript</td>
                                     <td>{current}</td>
-                                    {current !== "Completed" ? <td><button type="button" class="btn btn-primary">{current === "Active" ? "Take" : "Rate"}</button></td> :
-                                    <td><div className="progress"><div className="progress-bar" role="progressbar" style={{width: '50%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div></td>}
+                                    {current !== "Completed" 
+                                        ?   
+                                            <td>
+                                                <button 
+                                                    type="button" 
+                                                    className="btn btn-primary"
+                                                    onClick={toggleModal}
+                                                    >
+                                                        {current === "Available" ? "Take" : "Rate"}
+                                                </button>
+                                            </td>
+                                        :
+                                            <td>
+                                                <div className="progress">
+                                                    <div className="progress-bar" role="progressbar" style={{width: '50%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                        }
                                 </tr>
                                 <tr>
-                                    <td>Slack Team UI Design</td>
+                                    <td>Steve Martin</td>
                                     <td>47</td>
                                     <td>Blockchain fundamental</td>
                                     <td>{current}</td>
-                                    {current !== "Completed" ? <td><button type="button" class="btn btn-primary">{current === "Active" ? "Take" : "Rate"}</button></td> :
-                                    <td><div className="progress"><div className="progress-bar" role="progressbar" style={{width: '70%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div></td>}
+                                    {current !== "Completed"
+                                        ? 
+                                            <td>
+                                                <button 
+                                                    type="button" 
+                                                    className="btn btn-primary"
+                                                    onClick={toggleModal}
+                                                    >
+                                                        {current === "Available" ? "Take" : "Rate"}
+                                                </button>
+                                            </td>   
+                                        :
+                                            <td>
+                                                <div className="progress">
+                                                    <div className="progress-bar" role="progressbar" style={{width: '70%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                    }
                                 </tr>
                                 <tr>
-                                    <td>GitHub Satellite</td>
+                                    <td>Laura Da Silva</td>
                                     <td>120</td>
                                     <td>web3.js</td>
                                     <td>{current}</td>
-                                    {current !== "Completed" ? <td><button type="button" class="btn btn-primary">{current === "Active" ? "Take" : "Rate"}</button></td> :
-                                    <td><div className="progress"><div className="progress-bar" role="progressbar" style={{width: '10%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div></td>}
+                                    {current !== "Completed"
+                                        ? 
+                                            <td>
+                                                <button 
+                                                    type="button" 
+                                                    className="btn btn-primary"
+                                                    onClick={toggleModal}
+                                                    >
+                                                        {current === "Available" ? "Take" : "Rate"}
+                                                </button>
+                                            </td>
+                                        :
+                                            <td>
+                                                <div className="progress">
+                                                    <div className="progress-bar" role="progressbar" style={{width: '10%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                    }
                                 </tr>
                                 <tr>
-                                    <td>3D Character Modelling</td>
+                                    <td>Mitchell Johnson</td>
                                     <td>89</td>
                                     <td>Polkadot</td>
                                     <td>{current}</td>
-                                    {current !== "Completed" ? <td><button type="button" class="btn btn-primary">{current === "Active" ? "Take" : "Rate"}</button></td> :
-                                    <td><div className="progress"><div className="progress-bar" role="progressbar" style={{width: '40%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div></td>}
+                                    {current !== "Completed"
+                                        ?
+                                            <td>
+                                                <button 
+                                                    type="button" 
+                                                    className="btn btn-primary"
+                                                    onClick={toggleModal}
+                                                    >
+                                                        {current === "Available" ? "Take" : "Rate"}
+                                                </button>
+                                            </td>
+                                        :
+                                            <td>
+                                                <div className="progress">
+                                                    <div className="progress-bar" role="progressbar" style={{width: '40%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                    }
                                 </tr>
                                 <tr>
-                                    <td>Webapp Design System</td>
+                                    <td>Ian Bell</td>
                                     <td>108</td>
                                     <td>HTML</td>
                                     <td>{current}</td>
-                                    {current !== "Completed" ? <td><button type="button" class="btn btn-primary">{current === "Active" ? "Take" : "Rate"}</button></td> :
-                                    <td><div className="progress"><div className="progress-bar" role="progressbar" style={{width: '100%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div></div></td>}
+                                    {current !== "Completed" 
+                                        ?
+                                            <td>
+                                                <button 
+                                                    type="button" 
+                                                    className="btn btn-primary"
+                                                    onClick={toggleModal}
+                                                    >
+                                                        {current === "Available" ? "Take" : "Rate"}
+                                                </button>
+                                            </td>
+                                        :
+                                            <td>
+                                                <div className="progress">
+                                                    <div className="progress-bar" role="progressbar" style={{width: '100%'}} aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </td>
+                                    }
                                 </tr>
                             </tbody>
                         </table>
