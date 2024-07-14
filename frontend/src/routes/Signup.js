@@ -77,7 +77,6 @@ function Signup(){
                         <option selected>Select Role</option>
                         <option value="user">Skill Holder</option>
                         <option value="expert">Expert</option>
-                        <option value="employer">Employer</option>
                         <option value="admin">Admin</option>
                     </select>
                 </div>
