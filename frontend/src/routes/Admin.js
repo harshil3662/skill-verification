@@ -53,35 +53,35 @@ const Admin = () => {
                                     <td>{profile.fullName}</td>
                                     <td>34</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary">Take</button>
+                                        <button type="button" className="btn btn-primary">Verify</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Steve Martin</td>
                                     <td>47</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary">Take</button>
+                                        <button type="button" className="btn btn-primary">Verify</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Laura Da Silva</td>
                                     <td>120</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary">Take</button>
+                                        <button type="button" className="btn btn-primary">Verify</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Mitchell Johnson</td>
                                     <td>89</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary">Take</button>
+                                        <button type="button" className="btn btn-primary">Verify</button>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Ian Bell</td>
                                     <td>108</td>
                                     <td>
-                                        <button type="button" className="btn btn-primary">Take</button>
+                                        <button type="button" className="btn btn-primary">Verify</button>
                                     </td>
                                 </tr>
                             </tbody>
