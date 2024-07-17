@@ -1,8 +1,14 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import "../CSS/Navbar.css"
 
 function Navbar(){
+
+    const navigate = useNavigate();
+    const handleButtonClick = () => {
+        navigate("/signin")
+    }
+
     return (
         <nav className="navbar navbar-expand navbar-light bg-light">
             <div className="container-fluid m-2">
@@ -22,7 +28,7 @@ function Navbar(){
                                 <Link to="/" className="ms-1 me-1 p-2 nav-link">Home</Link>
                                 <Link to="/profile" className="ms-1 me-1 p-2 nav-link">Profile</Link>
                                 <Link to="/voting" className="ms-1 me-1 p-2 nav-link">Voting</Link>
-                                <button className="ms-1 me-1 btn btn-dark" type="submit">Sign In</button>
+                                <button className="ms-1 me-1 btn btn-dark" type="submit" onClick={handleButtonClick}>Sign In</button>
                             </div>
                         </div>
                     </div>

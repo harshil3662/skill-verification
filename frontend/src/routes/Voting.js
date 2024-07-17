@@ -34,7 +34,7 @@ function Voting(){
                         <th>Expert Name</th>
                         <th>Email</th>
                         <th>Productivity</th>
-                        <th>Reasons</th>
+                        <th>Details</th>
                         <th>Actions</th>
                     </tr>
                     </thead>

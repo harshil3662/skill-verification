@@ -70,6 +70,10 @@ function Proposal({onClose}){
                         <label for="exampleInputEmail1" class="form-label">External link</label>
                         <input type="email" className="form-control" name="link" id="exampleInputEmail1" aria-describedby="emailHelp"/>
                     </div>
+                    <div className="mb-3">
+                        <label for="formFile" className="form-label">Attatch files</label>
+                        <input className="form-control" type="file" id="formFile" name="file"/>
+                    </div>
                     <div className="text-center mt-4">
                         <button type="submit" className="btn btn-primary close me-2">Send Proposal</button>
                         <button type="submit" className="btn btn-light close" onClick={onClose}>Cancel Proposal</button>
