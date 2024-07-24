@@ -11,6 +11,21 @@ const SignIn = () => {
         navigate("/signup")
     }
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/api/signin/', JSON.stringify(formData), {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            console.log(response);
+            navigate("/");
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    }
+
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -21,19 +36,29 @@ const SignIn = () => {
                         </div>
                         <h2>Welcome Back to EthSkillVerify</h2>
                         <p>To connect with us please login with your personal information by email address and password.</p>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <input type="email" className="form-control" placeholder="Email Address" onChange={(e)=>setEmail(e.target.value)} />
+                                <input 
+                                    type="email" 
+                                    className="form-control" 
+                                    name='email'
+                                    placeholder="Email Address" 
+                                    onChange={(e)=>setEmail(e.target.value)} />
                             </div>
                             <div className="form-group">
-                                <input type="password" className="form-control" placeholder="Password" onChange={(e)=>setPassword(e.target.value)} />
+                                <input 
+                                    type="password" 
+                                    className="form-control" 
+                                    name='psw'
+                                    placeholder="Password" 
+                                    onChange={(e)=>setPassword(e.target.value)} />
                             </div>
-                            <button type="submit" className="btn btn-primary btn-block" onClick={()=>navigate('/')}>Login Now</button>
-                            <p className="forgot-password text-right">
-                                <a href="#">Forgot Password?</a>
-                            </p>
-                            <button type="button" className="btn btn-secondary btn-block" onClick={handleButtonClick}>Create Account</button>
+                            <button type="submit" className="btn btn-primary btn-block">Login Now</button>
                         </form>
+                        <p className="forgot-password text-right">
+                            <a href="#">Forgot Password?</a>
+                        </p>
+                        <button type="button" className="btn btn-secondary btn-block" onClick={handleButtonClick}>Create Account</button>
                     </div>
                 </div>
             </div>
