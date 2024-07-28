@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import "../CSS/Signin.css"
+import axios from 'axios';
 
 const SignIn = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    })
     const navigate = useNavigate();
 
-    const handleButtonClick = () => {
-        navigate("/signup")
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: value
+        });
     }
 
     const handleSubmit = async (e) => {
@@ -43,22 +50,22 @@ const SignIn = () => {
                                     className="form-control" 
                                     name='email'
                                     placeholder="Email Address" 
-                                    onChange={(e)=>setEmail(e.target.value)} />
+                                    onChange={handleChange} />
                             </div>
                             <div className="form-group">
                                 <input 
                                     type="password" 
                                     className="form-control" 
-                                    name='psw'
+                                    name='password'
                                     placeholder="Password" 
-                                    onChange={(e)=>setPassword(e.target.value)} />
+                                    onChange={handleChange} />
                             </div>
                             <button type="submit" className="btn btn-primary btn-block">Login Now</button>
                         </form>
                         <p className="forgot-password text-right">
                             <a href="#">Forgot Password?</a>
                         </p>
-                        <button type="button" className="btn btn-secondary btn-block" onClick={handleButtonClick}>Create Account</button>
+                        <button type="button" className="btn btn-secondary btn-block" onClick={()=>navigate('/signup')}>Create Account</button>
                     </div>
                 </div>
             </div>

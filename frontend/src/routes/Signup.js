@@ -18,7 +18,6 @@ function Signup(){
             ...formData,
             [name]: value
         });
-        console.log(formData);
     }
 
     const handleSubmit = async (e) => {
