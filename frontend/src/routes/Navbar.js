@@ -13,13 +13,13 @@ function Navbar(){
         <nav className="navbar navbar-expand navbar-light bg-light">
             <div className="container-fluid m-2">
                 <div className="col-4">
-                    <Link to="/" className="navbar-brand h1 text-dark">EthSkillVerify</Link>
+                    <Link to="/" className="navbar-brand h1 text-dark fs-3">EthSkillVerify</Link>
                 </div>
                 <div className="col-8">
                     <div className="container row">
                         <div className="col-4 d-flex justify-content-center align-items-center">
                             <form className="d-flex">
-                                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                                <input id="search" className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                                 <button className="btn btn-outline-secondary" type="submit">Search</button>
                             </form>
                         </div>

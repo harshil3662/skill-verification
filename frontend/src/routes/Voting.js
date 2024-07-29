@@ -67,7 +67,7 @@ function Voting(){
                             </div>
                         </div>
                     : 
-                        <button className="btn btn-info float-end m-3" onClick={connectWallet}>Connect wallet</button>
+                        <button className="btn btn-secondary float-end m-3" onClick={connectWallet}>Connect wallet</button>
                     }
                 </div>
                 <table>
