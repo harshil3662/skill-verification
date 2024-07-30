@@ -33,7 +33,7 @@ const SkillHolder = () =>{
         setProfileModel(!profileModel);
     };
 
-    if(showPopup) {
+    if(showPopup || profileModel) {
         document.body.classList.add('active-modal')
       } else {
         document.body.classList.remove('active-modal')
@@ -60,6 +60,7 @@ const SkillHolder = () =>{
                             name: '',
                             files: [],
                             link: '',
+                            flag:0,
                             button: 'Submit'
                         })}>+ Add Skill</button>
                     </div>
@@ -85,6 +86,7 @@ const SkillHolder = () =>{
                                     name: skill,
                                     files: [],
                                     link: '',
+                                    flag:1,
                                     button: 'Update'
                                 })}></i>
                                 <p className="skill-name text-success fw-bold">{skill}</p>

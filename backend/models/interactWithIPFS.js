@@ -5,7 +5,6 @@ const { HttpRpcProvider } = require('helia/providers/http-rpc');
 const web3 = new Web3('https://sepolia.infura.io/v3/YOUR_INFURA_PROJECT_ID');
 const helia = new Helia(new HttpRpcProvider('https://api.helia.io'));
 
-// Replace with your contract address and ABI
 const contractAddress = 'YOUR_CONTRACT_ADDRESS';
 const abi = [ /* ABI from the compiled contract */ ];
 
@@ -22,7 +21,6 @@ async function getIPFSHash(id) {
   console.log('Fetched IPFS hash:', hash);
 }
 
-// Example usage
 (async () => {
   await storeIPFSHash(1, 'QmHashOfIPFSContent');
   await getIPFSHash(1);

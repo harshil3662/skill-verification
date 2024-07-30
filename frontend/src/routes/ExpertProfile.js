@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../CSS/Expert.css';
 import Navbar from "./Navbar";
 import EditProfileModel from "./EditProfileModel";
-import RateModel from './Rate';
+import axios from 'axios';
 
 const Expert = () => {
-
     const [profileModel, setProfileModel] = useState(false)
     const [profile,setProfile] = useState({
         picture: 'https://via.placeholder.com/100',
@@ -19,7 +18,6 @@ const Expert = () => {
 
     const [current,setCurrent] = useState('Available')
     const navigate = useNavigate();
-
     const toggleEditProfileModal = () => {
         setProfileModel(!profileModel);
     };
@@ -31,6 +29,10 @@ const Expert = () => {
             navigate('/rate');
         }
     };
+
+    useEffect(()=>{
+        
+    },[])
 
     return (
         <div>

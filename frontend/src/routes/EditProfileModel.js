@@ -1,12 +1,42 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React,{useState} from "react";
 import "../CSS/Model.css"
+import axios from 'axios';
 
-function EditProfileModel({fullName,email,web,mobile,onClose}){
+function EditProfileModel({fullName:initialName,email:initialEmail,web:initialWeb,mobile:initialMobile,onClose}){
+    const [data,setData] = useState({
+        fullname: initialName || '',
+        email: initialEmail || '',
+        web: initialWeb || '',
+        mobile: initialMobile || ''
+    })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setData({
+            ...data,
+            [name]: value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/api/profile/info/', JSON.stringify(data), {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+            console.log(response);
+            onClose()
+        } catch (error) {
+            console.error('There was an error!', error);
+        }
+    };
+
     return (
         <div className="popup" onClick={onClose}>
             <div className="popup-contain rounded-3 p-3" onClick={(e)=>e.stopPropagation()}>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label htmlFor="fullname" className="form-label">Full Name</label>
                         <input
@@ -14,17 +44,19 @@ function EditProfileModel({fullName,email,web,mobile,onClose}){
                             className="form-control"
                             id="fullname"
                             name="fullname"
-                            value={fullName}
+                            onChange={handleChange}
+                            value={data.fullname}
                         />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="fullname" className="form-label">Email</label>
                         <input
-                            type="text"
+                            type="email"
                             className="form-control"
                             id="email"
                             name="email"
-                            value={email}
+                            onChange={handleChange}
+                            value={data.email}
                         />
                     </div>
                     <div className="mb-3">
@@ -34,7 +66,8 @@ function EditProfileModel({fullName,email,web,mobile,onClose}){
                             className="form-control"
                             id="mobile"
                             name="mobile"
-                            value={mobile}
+                            onChange={handleChange}
+                            value={data.mobile}
                         />
                     </div>
                     <div className="mb-3">
@@ -43,8 +76,9 @@ function EditProfileModel({fullName,email,web,mobile,onClose}){
                             type="text"
                             className="form-control"
                             id="website"
-                            name="website"
-                            value={web}
+                            name="web"
+                            onChange={handleChange}
+                            value={data.web}
                         />
                     </div>
                     <div className="text-center mt-4">
