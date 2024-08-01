@@ -3,7 +3,8 @@ const express = require('express');
 const connectDB = require('./db/index')
 const cors = require('cors')
 const cookieparser = require('cookie-parser')
-const userRoutes = require('./routes/signup');
+const userSignup = require('./routes/signup');
+const userSignin = require('./routes/signin');
 
 const app = express();
 const port = process.env.PORT || 8000
@@ -14,7 +15,6 @@ connectDB()
         })
     })
 
-
 app.use(cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true
@@ -23,4 +23,5 @@ app.use(express.json())
 app.use(express.urlencoded({ limit: '50mb', extended: true }))
 app.use(cookieparser())
 
-app.use('/api', userRoutes);
+app.use('/api/user', userSignup);
+app.use('/api', userSignin);

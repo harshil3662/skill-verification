@@ -1,13 +1,35 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { Link,useNavigate } from 'react-router-dom';
 import "../CSS/Navbar.css"
+import { useCookies } from 'react-cookie';
 
 function Navbar(){
-
+    const [cookies,removeCookie] = useCookies(['EthSkillVerifyData']);
+    const [isSignedIn,setSignIn] = useState(false)
     const navigate = useNavigate();
-    const handleButtonClick = () => {
+    const handleButtonClick = (flag) => {
+        if(flag){
+            removeCookie('EthSkillVerifyData', { path: '/' });
+            navigate("/")
+        }
         navigate("/signin")
     }
+
+    useEffect(() => {
+        const userData = cookies.EthSkillVerifyData;
+        if (userData) {
+            try {
+                console.log(userData);
+                console.log(isSignedIn)
+                if(userData.email === '' || !userData.role === ''){
+                    setSignIn(false)
+                }
+                setSignIn(true)
+            } catch (e) {
+                console.error('Error parsing user data:', e);
+            }
+        }
+    }, [cookies.EthSkillVerifyData]);
 
     return (
         <nav className="navbar navbar-expand navbar-light bg-light">
@@ -28,7 +50,11 @@ function Navbar(){
                                 <Link to="/" className="ms-1 me-1 p-2 nav-link">Home</Link>
                                 <Link to="/profile" className="ms-1 me-1 p-2 nav-link">Profile</Link>
                                 <Link to="/voting" className="ms-1 me-1 p-2 nav-link">Voting</Link>
-                                <button className="ms-1 me-1 btn btn-dark" type="submit" onClick={handleButtonClick}>Sign In</button>
+                                { isSignedIn ? 
+                                    <button className="ms-1 me-1 btn btn-dark" type="submit" onClick={()=>handleButtonClick(isSignedIn)}>Sign Out</button>
+                                     :
+                                    <button className="ms-1 me-1 btn btn-dark" type="submit" onClick={()=>handleButtonClick(isSignedIn)}>Sign In</button>
+                                }
                             </div>
                         </div>
                     </div>

@@ -23,7 +23,7 @@ function Signup(){
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/signup/', JSON.stringify(formData), {
+            const response = await axios.post('/api/user/signup', JSON.stringify(formData), {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -73,7 +73,7 @@ function Signup(){
                             <div className="form-group">
                                 <select name="role" className="form-control" aria-label="Default select example" onChange={handleChange}>
                                     <option selected>Choose your role</option>
-                                    <option value="skillHoldre">Skill Holder</option>
+                                    <option value="skillHolder">Skill Holder</option>
                                     <option value="expert">Expert</option>
                                     <option value="admin">Admin</option>
                                 </select>
