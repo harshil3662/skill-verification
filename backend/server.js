@@ -5,6 +5,7 @@ const cors = require('cors')
 const cookieparser = require('cookie-parser')
 const userSignup = require('./routes/signup');
 const userSignin = require('./routes/signin');
+const skillRoutes = require('./routes/skillRoutes')
 
 const app = express();
 const port = process.env.PORT || 8000
@@ -25,3 +26,4 @@ app.use(cookieparser())
 
 app.use('/api/user', userSignup);
 app.use('/api', userSignin);
+app.use('/api/skill', skillRoutes);

@@ -17,6 +17,7 @@ router.post('/signin', async (req, res) => {
         }
 
         const userData = {
+            id: user._id,
             email: user.email,
             role: user.role
         };

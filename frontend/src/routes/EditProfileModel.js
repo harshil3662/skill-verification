@@ -2,12 +2,12 @@ import React,{useState} from "react";
 import "../CSS/Model.css"
 import axios from 'axios';
 
-function EditProfileModel({fullName:initialName,email:initialEmail,web:initialWeb,mobile:initialMobile,onClose}){
+function EditProfileModel({user,onClose}){
     const [data,setData] = useState({
-        fullname: initialName || '',
-        email: initialEmail || '',
-        web: initialWeb || '',
-        mobile: initialMobile || ''
+        fullname: user.fullname || '',
+        email: user.email || '',
+        website: user.website || '',
+        mobile: user.mobile || ''
     })
 
     const handleChange = (e) => {
@@ -21,7 +21,7 @@ function EditProfileModel({fullName:initialName,email:initialEmail,web:initialWe
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/profile/info/', JSON.stringify(data), {
+            const response = await axios.put('/api/user/update/profile', JSON.stringify(data), {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -76,9 +76,9 @@ function EditProfileModel({fullName:initialName,email:initialEmail,web:initialWe
                             type="text"
                             className="form-control"
                             id="website"
-                            name="web"
+                            name="website"
                             onChange={handleChange}
-                            value={data.web}
+                            value={data.website}
                         />
                     </div>
                     <div className="text-center mt-4">

@@ -26,7 +26,6 @@ const Profile = () => {
         const userData = cookies.EthSkillVerifyData;
         if (userData) {
             try {
-                console.log(userData);
                 setProfile(userData.role);
             } catch (e) {
                 console.error('Error parsing user data:', e);

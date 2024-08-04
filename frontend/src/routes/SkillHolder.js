@@ -1,24 +1,22 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import JobListing from "./JobListing";
-import { Link } from 'react-router-dom';
 import "../CSS/SkillHolder.css"
 import Navbar from "./Navbar";
 import Model from "./Model";
 import EditProfileModel from "./EditProfileModel";
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const SkillHolder = () =>{
-
+    const [cookies] = useCookies(['EthSkillVerifyData']);
     const [showPopup, setShowPopup] = useState(false);
     const [profileModel, setProfileModel] = useState(false)
     const [modalProps, setModalProps] = useState({});
     const [profile,setProfile] = useState({
-        picture: 'https://via.placeholder.com/100',
-        web:'https://via.placeholder.com/100',
-        fullName: 'John Doe',
-        mobile: '+1234567890',
-        email: 'john.doe@example.com',
-        skills: ['JavaScript', 'React', 'CSS']
+        unverified: ['JavaScript', 'React', 'CSS'],
+        verified: ['JavaScript', 'React', 'CSS']
     })
+    const [user,setUser] = useState({})
 
     const handleButton = (props) => {
         setModalProps(props);
@@ -33,6 +31,24 @@ const SkillHolder = () =>{
         setProfileModel(!profileModel);
     };
 
+    useEffect(()=>{
+        async function fetchData() {
+            const userData = cookies.EthSkillVerifyData;
+            if (userData && userData.email) {
+                try {
+                    const response = await axios.get('/api/user/profile', {
+                        params: { email: userData.email }
+                    });
+                    console.log('The response is', response.data);
+                    setUser(response.data);
+                } catch (error) {
+                    console.error('There was an error!', error);
+                }
+            }
+        }
+        fetchData();
+    },[cookies.EthSkillVerifyData,user])
+
     if(showPopup || profileModel) {
         document.body.classList.add('active-modal')
       } else {
@@ -45,11 +61,11 @@ const SkillHolder = () =>{
             <div className="user-profile m-5">
                 <i className="bi bi-pencil-square fs-4 text-dark float-end" onClick={toggleEditProfileModal}></i>
                 <div className="profile-header">
-                    <img src={profile.picture} alt={`${profile.fullName}'s profile`} className="profile-picture" />
+                    <img src='https://via.placeholder.com/100' alt={`${user.fullname}'s profile`} className="profile-picture" />
                     <div className="profile-info">
-                        <h2 className="profile-name">{profile.fullName}</h2>
-                        <p><label className="fw-bold">Email:</label> {profile.email}</p>
-                        <p><label className="fw-bold">Website:</label> {profile.web}</p>
+                        <h2 className="profile-name">{user.fullname}</h2>
+                        <p><label className="fw-bold">Email:</label> {user.email}</p>
+                        <p><label className="fw-bold">Website:</label> {user.website !== "" ? user.website : 'not defined'}</p>
                     </div>
                 </div>
                 <hr/>
@@ -68,7 +84,7 @@ const SkillHolder = () =>{
                     <div className="focus-skills">
                         <h4>Verified Skills</h4>
                         <div className="skills-grid">
-                        {profile.skills.map((skill, index) => (
+                        {profile.verified.map((skill, index) => (
                             <div className="skill-card" key={index}>
                                 <p className="skill-rating">Rating:</p>
                                 <p className="skill-level">{index + 1}/10</p>
@@ -80,7 +96,7 @@ const SkillHolder = () =>{
                     <div className="additional-skills">
                         <h4>Unverified Skills</h4>
                         <div className="skills-grid">
-                        {profile.skills.map((skill, index) => (
+                        {profile.unverified.map((skill, index) => (
                             <div className="skill-card" key={index}>
                                 <i className="bi bi-pencil-square text-primary" onClick={() => handleButton({
                                     name: skill,
@@ -99,10 +115,9 @@ const SkillHolder = () =>{
                 </div>
                 <JobListing/>
                 {showPopup && <Model {...modalProps} onClose={closeModal}/>}
-                {profileModel && <EditProfileModel {...profile} onClose={toggleEditProfileModal}/>}
+                {profileModel && <EditProfileModel user={user} onClose={toggleEditProfileModal}/>}
             </div>
         </div>
-        
     )
 }
 

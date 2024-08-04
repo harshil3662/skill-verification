@@ -1,39 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../CSS/Model.css";
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 function Model({ name: initialName, files: initialFiles, link: initialLink, flag, button, onClose }) {
+    const [cookies] = useCookies(['EthSkillVerifyData']);
     const [data, setData] = useState({
         name: initialName || '',
         link: initialLink || '',
-        files: initialFiles || []
+        files: initialFiles || [],
+        uid: ''
     });
+
+    useEffect(() => {
+        const userData = cookies.EthSkillVerifyData;
+        if (userData) {
+            setData(prevData => ({
+                ...prevData,
+                uid: userData.id
+            }));
+        }
+    }, [cookies.EthSkillVerifyData]);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
         if (name === "files") {
-            setData({
-                ...data,
+            setData(prevData => ({
+                ...prevData,
                 files: Array.from(files)
-            });
+            }));
         } else {
-            setData({
-                ...data,
+            setData(prevData => ({
+                ...prevData,
                 [name]: value
-            });
+            }));
         }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('name', data.name);
+        formData.append('link', data.link);
+        formData.append('uid', data.uid);
+        data.files.forEach((file, index) => {
+            formData.append(`files[${index}]`, file);
+        });
+
         try {
-            const response = await axios.post('/api/skill/info/', JSON.stringify(data), {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
+            const response = await axios.post('/api/skill/info/', formData);
             console.log(response);
-            onClose()
+            onClose();
         } catch (error) {
             console.error('There was an error!', error);
         }
@@ -48,7 +66,7 @@ function Model({ name: initialName, files: initialFiles, link: initialLink, flag
                     </button>
                 </div>
                 <h2>Add Your Skill</h2>
-                <form className="mt-3 p-2" onSubmit={handleSubmit}>
+                <form className="mt-3 p-2" onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="mb-3">
                         <label htmlFor="skillname" className="form-label">Skill Name</label>
                         <input
