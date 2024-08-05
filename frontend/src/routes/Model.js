@@ -3,12 +3,12 @@ import "../CSS/Model.css";
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 
-function Model({ name: initialName, files: initialFiles, link: initialLink, flag, button, onClose }) {
+function Model({ name: initialName, file: initialFile, link: initialLink, flag, button, onClose }) {
     const [cookies] = useCookies(['EthSkillVerifyData']);
     const [data, setData] = useState({
         name: initialName || '',
         link: initialLink || '',
-        files: initialFiles || [],
+        file: initialFile || null,
         uid: ''
     });
 
@@ -24,10 +24,10 @@ function Model({ name: initialName, files: initialFiles, link: initialLink, flag
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        if (name === "files") {
+        if (name === "file") {
             setData(prevData => ({
                 ...prevData,
-                files: Array.from(files)
+                file: files[0]
             }));
         } else {
             setData(prevData => ({
@@ -39,18 +39,22 @@ function Model({ name: initialName, files: initialFiles, link: initialLink, flag
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const formData = new FormData();
         formData.append('name', data.name);
         formData.append('link', data.link);
         formData.append('uid', data.uid);
-        data.files.forEach((file, index) => {
-            formData.append(`files[${index}]`, file);
-        });
-
+        if (data.file) {
+            formData.append('file', data.file);
+        }
+        console.log('form data: ',data);
+        
         try {
-            const response = await axios.post('/api/skill/info/', formData);
-            console.log(response);
+            const response = await axios.post('/api/skill/info/', formData,{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log('model responce is: ',response);
             onClose();
         } catch (error) {
             console.error('There was an error!', error);
@@ -97,11 +101,9 @@ function Model({ name: initialName, files: initialFiles, link: initialLink, flag
                             className="form-control" 
                             type="file" 
                             id="formFile" 
-                            name="files"
-                            multiple
+                            name="file"
                             onChange={handleChange} 
                         />
-                        <label className="text-secondary">{flag === 0 ? data.files.length : initialFiles.length} files selected</label>
                     </div>
                     <div className="text-center mt-4">
                         <button type="submit" className="btn btn-primary close me-2">{button}</button>

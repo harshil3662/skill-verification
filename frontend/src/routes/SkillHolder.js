@@ -36,11 +36,20 @@ const SkillHolder = () =>{
             const userData = cookies.EthSkillVerifyData;
             if (userData && userData.email) {
                 try {
-                    const response = await axios.get('/api/user/profile', {
+                    const response1 = await axios.get('/api/user/profile', {
                         params: { email: userData.email }
                     });
-                    console.log('The response is', response.data);
-                    setUser(response.data);
+                    setUser(response1.data);
+                    
+                    const response2 = await axios.get('/api/skill/info', {
+                        params: { uid: userData.uid }
+                    });
+                    console.log(response2);
+                    
+                    // setProfile({
+                    //     ...profile,
+                    //     unverified: response2
+                    // })
                 } catch (error) {
                     console.error('There was an error!', error);
                 }
@@ -74,7 +83,7 @@ const SkillHolder = () =>{
                         <h3>Skills</h3>
                         <button className="float-end btn btn-primary" onClick={() => handleButton({
                             name: '',
-                            files: [],
+                            file: null,
                             link: '',
                             flag:0,
                             button: 'Submit'
@@ -100,7 +109,7 @@ const SkillHolder = () =>{
                             <div className="skill-card" key={index}>
                                 <i className="bi bi-pencil-square text-primary" onClick={() => handleButton({
                                     name: skill,
-                                    files: [],
+                                    file: null,
                                     link: '',
                                     flag:1,
                                     button: 'Update'

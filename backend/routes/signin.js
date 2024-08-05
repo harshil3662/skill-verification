@@ -1,9 +1,10 @@
-const express = require('express');
+import express from 'express';
+import User from '../models/user.js';
+
 const router = express.Router();
-const User = require('../models/user');
 
 router.post('/signin', async (req, res) => {
-    try{
+    try {
         const { email, password } = req.body;
     
         let user = await User.findOne({ email });
@@ -13,7 +14,7 @@ router.post('/signin', async (req, res) => {
         }
 
         if(user.password !== password){
-            return res.status(401).json({ message: 'password is wrong.' })
+            return res.status(401).json({ message: 'Password is wrong.' });
         }
 
         const userData = {
@@ -29,12 +30,10 @@ router.post('/signin', async (req, res) => {
             maxAge: 24 * 60 * 60 * 1000
         });
         res.status(200).json({ message: 'Login successful!' });
-    }
-    catch (err) {
-        console.log("------");
+    } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
 });
 
-module.exports = router;
+export default router;
