@@ -13,8 +13,8 @@ const SkillHolder = () =>{
     const [profileModel, setProfileModel] = useState(false)
     const [modalProps, setModalProps] = useState({});
     const [profile,setProfile] = useState({
-        unverified: ['JavaScript', 'React', 'CSS'],
-        verified: ['JavaScript', 'React', 'CSS']
+        unverified: [],
+        verified: []
     })
     const [user,setUser] = useState({})
 
@@ -36,27 +36,40 @@ const SkillHolder = () =>{
             const userData = cookies.EthSkillVerifyData;
             if (userData && userData.email) {
                 try {
-                    const response1 = await axios.get('/api/user/profile', {
+                    const response = await axios.get('/api/user/profile', {
                         params: { email: userData.email }
                     });
-                    setUser(response1.data);
                     
-                    const response2 = await axios.get('/api/skill/info', {
-                        params: { uid: userData.uid }
-                    });
-                    console.log(response2);
-                    
-                    // setProfile({
-                    //     ...profile,
-                    //     unverified: response2
-                    // })
+                    setUser(response.data);
                 } catch (error) {
                     console.error('There was an error!', error);
                 }
             }
         }
         fetchData();
-    },[cookies.EthSkillVerifyData,user])
+    },[cookies.EthSkillVerifyData])
+
+    useEffect(()=>{
+        async function fetchData() {
+            const userData = cookies.EthSkillVerifyData;
+            if (userData && userData.email) {
+                try {
+                    const response = await axios.get('/api/skill/info', {
+                        params: { uid: userData.uid }
+                    });
+                    console.log('responce 2: ',response);
+                    
+                    setProfile({
+                        ...profile,
+                        unverified: response.data
+                    })
+                } catch (error) {
+                    console.error('There was an error!', error);
+                }
+            }
+        }
+        fetchData();
+    },[cookies.EthSkillVerifyData])
 
     if(showPopup || profileModel) {
         document.body.classList.add('active-modal')
@@ -108,9 +121,9 @@ const SkillHolder = () =>{
                         {profile.unverified.map((skill, index) => (
                             <div className="skill-card" key={index}>
                                 <i className="bi bi-pencil-square text-primary" onClick={() => handleButton({
-                                    name: skill,
+                                    name: skill.name,
                                     file: null,
-                                    link: '',
+                                    link: skill.link,
                                     flag:1,
                                     button: 'Update'
                                 })}></i>
