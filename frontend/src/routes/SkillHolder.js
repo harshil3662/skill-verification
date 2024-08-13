@@ -13,7 +13,18 @@ const SkillHolder = () =>{
     const [profileModel, setProfileModel] = useState(false)
     const [modalProps, setModalProps] = useState({});
     const [profile,setProfile] = useState({
-        unverified: [],
+        unverified: [
+            {
+                name:'Javascript',
+                link:'www.example.com',
+                file:[]
+            },
+            {
+                name:'web3.js',
+                link:'www.example.com',
+                file:[]
+            }
+        ],
         verified: []
     })
     const [user,setUser] = useState({})
@@ -55,14 +66,14 @@ const SkillHolder = () =>{
             if (userData && userData.email) {
                 try {
                     const response = await axios.get('/api/skill/info', {
-                        params: { uid: userData.uid }
+                        params: { uid: userData.uid },
                     });
                     console.log('responce 2: ',response);
                     
-                    setProfile({
-                        ...profile,
-                        unverified: response.data
-                    })
+                    // setProfile((prevProfile) => ({
+                    //     ...prevProfile,
+                    //     unverified: response.data
+                    // }));
                 } catch (error) {
                     console.error('There was an error!', error);
                 }
@@ -127,7 +138,7 @@ const SkillHolder = () =>{
                                     flag:1,
                                     button: 'Update'
                                 })}></i>
-                                <p className="skill-name text-success fw-bold">{skill}</p>
+                                <p className="skill-name text-success fw-bold">{skill.name}</p>
                                 <button type="button" class="btn btn-danger">Delete</button>
                             </div>
                         ))}

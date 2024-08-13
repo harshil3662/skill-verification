@@ -64,22 +64,18 @@ function Voting(){
         <div>
             <Navbar/>
             <div className="vendor-list">
-                {isExpert ? 
-                    <div></div>
-                     : 
-                    <div>
-                      {account ?
-                          <div className="d-flex justify-content-end align-items-center m-3">
-                              <button className="proposal p-2 rounded me-3" onClick={toggleModal}>Add Proposal</button>
-                              <div className="box p-2 m-0 alert alert-primary" role="alert">
-                                  <label className="fw-bold">Wallet Address:</label> {`${account.substring(0, 9)}...${account.substring(account.length - 4)}`}
-                              </div>
+                <div>
+                  {account ?
+                      <div className="d-flex justify-content-end align-items-center m-3">
+                          {isExpert ? <></> : <button className="proposal p-2 rounded me-3" onClick={toggleModal}>Add Proposal</button>}
+                          <div className="box p-2 m-0 alert alert-primary" role="alert">
+                              <label className="fw-bold">Wallet Address:</label> {`${account.substring(0, 9)}...${account.substring(account.length - 4)}`}
                           </div>
-                      : 
-                          <button className="btn btn-secondary float-end m-3" onClick={connectWallet}>Connect wallet</button>
-                      }
-                    </div>
-                }
+                      </div>
+                  : 
+                      <button className="btn btn-secondary float-end m-3" onClick={connectWallet}>Connect wallet</button>
+                  }
+                </div>
                 <table>
                     <thead>
                     <tr>

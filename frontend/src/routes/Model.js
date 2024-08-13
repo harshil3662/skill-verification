@@ -46,7 +46,6 @@ function Model({ name: initialName, file: initialFile, link: initialLink, flag, 
         if (data.file) {
             formData.append('file', data.file);
         }
-        console.log('form data: ',data);
         
         try {
             const response = await axios.post('/api/skill/info/', formData,{
@@ -54,7 +53,6 @@ function Model({ name: initialName, file: initialFile, link: initialLink, flag, 
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('model responce is: ',response);
             onClose();
         } catch (error) {
             console.error('There was an error!', error);

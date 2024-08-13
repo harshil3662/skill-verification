@@ -32,7 +32,7 @@ function Navbar(){
     }, [cookies.EthSkillVerifyData]);
 
     return (
-        <nav className="navbar navbar-expand navbar-light bg-light">
+        <nav className="navbar navbar-expand border-secondary border-bottom navbar-light bg-light">
             <div className="container-fluid m-2">
                 <div className="col-4">
                     <Link to="/" className="navbar-brand h1 text-dark fs-3">EthSkillVerify</Link>

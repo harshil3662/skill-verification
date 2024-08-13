@@ -4,18 +4,12 @@ import '../CSS/Expert.css';
 import Navbar from "./Navbar";
 import EditProfileModel from "./EditProfileModel";
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const Expert = () => {
     const [profileModel, setProfileModel] = useState(false)
-    const [profile,setProfile] = useState({
-        picture: 'https://via.placeholder.com/100',
-        web:'https://via.placeholder.com/100',
-        fullName: 'John Doe',
-        mobile: '+1234567890',
-        email: 'john.doe@example.com',
-        skills: ['JavaScript', 'React', 'CSS']
-    })
-
+    const [user,setUser] = useState({})
+    const [cookies] = useCookies(['EthSkillVerifyData']);
     const [current,setCurrent] = useState('Available')
     const navigate = useNavigate();
     const toggleEditProfileModal = () => {
@@ -31,8 +25,22 @@ const Expert = () => {
     };
 
     useEffect(()=>{
-        
-    },[])
+        async function fetchData() {
+            const userData = cookies.EthSkillVerifyData;
+            if (userData && userData.email) {
+                try {
+                    const response = await axios.get('/api/user/profile', {
+                        params: { email: userData.email }
+                    });
+                    
+                    setUser(response.data);
+                } catch (error) {
+                    console.error('There was an error!', error);
+                }
+            }
+        }
+        fetchData();
+    },[cookies.EthSkillVerifyData])
 
     return (
         <div>
@@ -40,11 +48,11 @@ const Expert = () => {
             <div className="container mt-5">
                 <i className="bi bi-pencil-square fs-4 text-dark float-end" onClick={toggleEditProfileModal}></i>
                 <div className="profile-header">
-                    <img src={profile.picture} alt={`${profile.fullName}'s profile`} className="profile-picture" />
+                    <img src='https://via.placeholder.com/100' alt={`${user.fullname}'s profile`} className="profile-picture" />
                     <div className="profile-info">
-                        <h2 className="profile-name">{profile.fullName}</h2>
-                        <p><label className="fw-bold">Email:</label> {profile.email}</p>
-                        <p><label className="fw-bold">Website:</label> {profile.web}</p>
+                        <h2 className="profile-name">{user.fullname}</h2>
+                        <p><label className="fw-bold">Email:</label> {user.email}</p>
+                        <p><label className="fw-bold">Website:</label> {user.web}</p>
                     </div>
                 </div>
                 <div className="row mb-4">
@@ -99,7 +107,7 @@ const Expert = () => {
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>{profile.fullName}</td>
+                                    <td>{user.fullname}</td>
                                     <td>34</td>
                                     <td>JavaScript</td>
                                     <td>{current}</td>
@@ -111,7 +119,7 @@ const Expert = () => {
                                                     className="btn btn-primary"
                                                     onClick={toggleModal}
                                                     >
-                                                        {current === "Available" ? "Take" : "Rate"}
+                                                        {current === "Available" ? "Take Profile" : "Rate"}
                                                 </button>
                                             </td>
                                         :
@@ -135,7 +143,7 @@ const Expert = () => {
                                                     className="btn btn-primary"
                                                     onClick={toggleModal}
                                                     >
-                                                        {current === "Available" ? "Take" : "Rate"}
+                                                        {current === "Available" ? "Take Profile" : "Rate"}
                                                 </button>
                                             </td>   
                                         :
@@ -159,7 +167,7 @@ const Expert = () => {
                                                     className="btn btn-primary"
                                                     onClick={toggleModal}
                                                     >
-                                                        {current === "Available" ? "Take" : "Rate"}
+                                                        {current === "Available" ? "Take Profile" : "Rate"}
                                                 </button>
                                             </td>
                                         :
@@ -183,7 +191,7 @@ const Expert = () => {
                                                     className="btn btn-primary"
                                                     onClick={toggleModal}
                                                     >
-                                                        {current === "Available" ? "Take" : "Rate"}
+                                                        {current === "Available" ? "Take Profile" : "Rate"}
                                                 </button>
                                             </td>
                                         :
@@ -207,7 +215,7 @@ const Expert = () => {
                                                     className="btn btn-primary"
                                                     onClick={toggleModal}
                                                     >
-                                                        {current === "Available" ? "Take" : "Rate"}
+                                                        {current === "Available" ? "Take Profile" : "Rate"}
                                                 </button>
                                             </td>
                                         :
@@ -222,7 +230,7 @@ const Expert = () => {
                         </table>
                     </div>
                 </div>
-                {profileModel && <EditProfileModel {...profile} onClose={toggleEditProfileModal}/>}
+                {profileModel && <EditProfileModel user={user} onClose={toggleEditProfileModal}/>}
             </div>
         </div>
         

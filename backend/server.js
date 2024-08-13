@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import userSignup from './routes/signup.js';
 import userSignin from './routes/signin.js';
 import skillRoutes from './routes/skillRoutes.js';
+import proposalRoutes from './routes/proposalRoutes.js'
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -30,3 +31,4 @@ app.use(cookieParser());
 app.use('/api/user', userSignup);
 app.use('/api', userSignin);
 app.use('/api/skill', skillRoutes);
+app.use('/api/proposal', proposalRoutes);

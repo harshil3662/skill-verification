@@ -1,24 +1,26 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { Link } from 'react-router-dom';
 import "../CSS/Proposal.css"
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 function Proposal({onClose}){
+    const [cookies] = useCookies(['EthSkillVerifyData']);
     const [isClicked,setClick] = useState(false)
-
     const [data,setData] = useState({
         candidate:'',
         reasons:'',
         link:'',
-        files:[]
+        uid:'',
+        file:null
     })
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
-        if (name === "files") {
+        if (name === "file") {
             setData({
                 ...data,
-                files: Array.from(files)
+                file: files[0]
             });
         } else {
             setData({
@@ -54,7 +56,7 @@ function Proposal({onClose}){
       const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('/api/proposal/info/', JSON.stringify(data), {
+            const response = await axios.post('/api/proposal/post', JSON.stringify(data), {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -65,6 +67,16 @@ function Proposal({onClose}){
             console.error('There was an error!', error);
         }
     };
+
+    useEffect(() => {
+        const userData = cookies.EthSkillVerifyData;
+        if (userData) {
+            setData(prevData => ({
+                ...prevData,
+                uid: userData.id
+            }));
+        }
+    }, [cookies.EthSkillVerifyData]);
 
     return (
         <div className="proposal-model" onClick={onClose}>
@@ -126,7 +138,7 @@ function Proposal({onClose}){
                             className="form-control" 
                             type="file" 
                             id="formFile" 
-                            name="files"
+                            name="file"
                             onChange={handleChange}
                             multiple/>
                             <label className="text-secondary">{data.files.length} files selected</label>
