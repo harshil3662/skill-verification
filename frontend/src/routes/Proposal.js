@@ -141,7 +141,6 @@ function Proposal({onClose}){
                             name="file"
                             onChange={handleChange}
                             multiple/>
-                            <label className="text-secondary">{data.files.length} files selected</label>
                     </div>
                     <div className="text-center mt-4">
                         <button type="submit" className="btn btn-primary close me-2">Send Proposal</button>

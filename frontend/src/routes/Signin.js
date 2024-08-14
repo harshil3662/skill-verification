@@ -27,6 +27,7 @@ const SignIn = () => {
                     'Content-Type': 'application/json',
                 }
             });
+            
             navigate("/");
         } catch (error) {
             if (error.response && error.response.status === 401) {

@@ -15,6 +15,8 @@ function Candidate({candidate}){
             <td>{candidate.name}</td>
             <td>{candidate.email}</td>
             <td>{candidate.productivity}</td>
+            <td>{candidate.holder}</td>
+            <td>{candidate.skill}</td>
             <td><button className="btn btn-primary" onClick={toggleModal}>Details</button></td>
             {showPopup && <ProposalDetailModel onClose={toggleModal}/>}
             <td>

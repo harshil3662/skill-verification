@@ -14,13 +14,13 @@ function Voting(){
     const [isExpert,setExpert] = useState(false)
 
     const candidates = [
-        { name: 'John Doe', email: 'johndoe@gmail.com', productivity: '75%'},
-        { name: 'John Doe', email: 'johndoe@gmail.com', productivity: '75%'},
-        { name: 'John Doe', email: 'johndoe@gmail.com', productivity: '75%'},
-        { name: 'John Doe', email: 'johndoe@gmail.com', productivity: '75%'},
-        { name: 'John Doe', email: 'johndoe@gmail.com', productivity: '75%'},
-        { name: 'John Doe', email: 'johndoe@gmail.com', productivity: '75%'},
-        { name: 'John Doe', email: 'johndoe@gmail.com', productivity: '75%'}
+        { name: 'John Doe', email: 'johndoe@gmail.com', skill:'Javascript' , holder:'Harshil Vaghani', productivity: '80%'},
+        { name: 'Robin Matthew', email: 'robin123@gmail.com', skill:'HTML', holder:'Faizan Ul Haq',  productivity: '81%'},
+        { name: 'Raj Kulkarni', email: 'rajkulkarni@gmail.com', skill:'Web3.js', holder:'Alex Lee', productivity: '90%'},
+        { name: 'Alice Parkinson', email: 'alicep@gmail.com', skill:'Blockchain', holder:'Jay Pathak', productivity: '79%'},
+        { name: 'Bob Willis', email: 'bobby@gmail.com', skill:'React.js',holder:'Zarna Devaliya' , productivity: '74%'},
+        { name: 'John Anderson', email: 'johnanderson123@gmail.com', skill:'CSS', holder:'Robin Alexander', productivity: '85%'},
+        { name: 'Matt Petrie', email: 'mattp123@gmail.com', skill:'Node.js', holder:'Racheal Hyatt', productivity: '65%'}
     ];
 
     const [showPopup, setShowPopup] = useState(false);
@@ -80,8 +80,10 @@ function Voting(){
                     <thead>
                     <tr>
                         <th>Expert Name</th>
-                        <th>Email</th>
+                        <th>Expert Email</th>
                         <th>Productivity</th>
+                        <th>Skill Holder</th>
+                        <th>Skill Name</th>
                         <th>Details</th>
                         <th>Actions</th>
                     </tr>
