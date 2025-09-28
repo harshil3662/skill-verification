@@ -29,7 +29,7 @@ router.post('/signin', async (req, res) => {
             sameSite: 'Strict',
             maxAge: 24 * 60 * 60 * 1000
         });
-        res.status(200).json({ message: 'Login successful!' });
+        res.status(200).json({ message: 'Login successful!', role: user.role});
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');

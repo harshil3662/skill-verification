@@ -3,7 +3,8 @@ import multer from 'multer';
 import dotenv from 'dotenv';
 dotenv.config({ path: "../.env" });
 import fs from 'fs-extra'
-import {db1,db2,account,ipfs} from '../models/ipfs.js'
+import Web3 from 'web3';
+import {db1,db2,account,ipfs,web3} from '../models/ipfs.js'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const router = express.Router();

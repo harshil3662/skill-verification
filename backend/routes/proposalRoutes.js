@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: "../.env" });
 import Web3 from 'web3';
 import fs from 'fs-extra'
-import {db3,account,ipfs} from '../models/ipfs.js'
+import {db3,account,ipfs,web3} from '../models/ipfs.js'
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const router = express.Router();

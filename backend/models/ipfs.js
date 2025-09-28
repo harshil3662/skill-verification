@@ -38,4 +38,4 @@ let db1,db2,db3,ipfs;
     console.log('address3: ',address3)
 })()
 
-export {db1,db2,db3,account,ipfs}
+export {db1,db2,db3,account,ipfs,web3}

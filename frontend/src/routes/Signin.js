@@ -27,8 +27,12 @@ const SignIn = () => {
                     'Content-Type': 'application/json',
                 }
             });
-            
-            navigate("/");
+            console.log('Role: ',response.data.role);
+            if (response.data.role === 'admin') {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
         } catch (error) {
             if (error.response && error.response.status === 401) {
                 setPasswordMsg(true);
